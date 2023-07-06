@@ -1,0 +1,86 @@
+<template>
+  <div class="register">
+    <div class="title">用户注册</div>
+    <!-- <div class="is_existing_account">已有账号?立即登录</div> -->
+    <el-form :model="form" label-width="120px">
+      <el-form-item label="用户名" prop="userName">
+        <el-input placeholder="请输入用户名" v-model="form.userName" />
+      </el-form-item>
+      <el-form-item label="密码" porp="password">
+        <el-input placeholder="请输入密码" v-model="form.password" />
+      </el-form-item>
+      <el-form-item label="邮箱" prop="email">
+        <el-input placeholder="请输入邮箱" v-model="form.email" />
+      </el-form-item>
+      <el-form-item label="姓名" prop="realName">
+        <el-input placeholder="请输入姓名" v-model="form.realName" />
+      </el-form-item>
+      <el-form-item label="手机号" prop="phone">
+        <el-input placeholder="请输入手机号" v-model="form.phone" />
+      </el-form-item>
+      <el-form-item>
+        <el-button type="primary" @click="onSubmit">注册</el-button>
+        <el-button>取消</el-button>
+      </el-form-item>
+    </el-form>
+  </div>
+</template>
+
+<script setup>
+import { reactive } from "vue";
+import request from "../api/request";
+
+const form = reactive({
+  userName: "",
+  password: "",
+  email: "",
+  realName: "",
+  phone: "",
+});
+
+const rules = reactive({
+  userName: [
+    { required: true, message: "Please input Activity name", trigger: "blur" },
+    { min: 3, max: 5, message: "Length should be 3 to 5", trigger: "blur" },
+  ],
+  
+});
+
+// 注册
+const onSubmit = () => {
+  request("/user/register", "POST", {
+    username: form.username,
+    password: form.password,
+    email: form.email,
+    realName: form.realName,
+    phone: form.phone,
+  }).then();
+};
+</script>
+
+<style scoped>
+.register {
+  margin: 30px auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 500px;
+  height: 500px;
+  border: 1px solid #eee;
+}
+.title {
+  margin: 20px 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+}
+.is_existing_account {
+  font-size: 14px;
+  color: gray;
+  margin: 10px 5px;
+  display: flex;
+  justify-content: right;
+}
+</style>
