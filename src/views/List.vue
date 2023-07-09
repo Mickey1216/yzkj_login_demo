@@ -1,10 +1,9 @@
 <template>
   <div class="list">
     <div class="title">用户基本信息展示</div>
-    <el-table :data="state.userInfoList" style="width: 700px" stripe border>
+    <el-table :data="state.userInfoList" style="width: 540px" stripe border>
       <el-table-column prop="userName" label="用户名" width="180" />
       <el-table-column prop="email" label="邮箱" width="180" />
-      <el-table-column prop="realName" label="姓名" width="180" />
       <el-table-column prop="phone" label="手机号" width="180" />
     </el-table>
     <el-pagination layout="prev, pager, next" :total="1000" />
