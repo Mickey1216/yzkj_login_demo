@@ -46,6 +46,7 @@
 <script setup>
 import { User, Lock } from "@element-plus/icons-vue";
 import axios from "axios";
+import { ElMessage } from "element-plus";
 import { reactive } from "vue";
 
 import { useRouter } from "vue-router";
@@ -102,33 +103,34 @@ const onLogin = () => {
   let password = loginForm.password.trim();
 
   axios
-    .post("http://192.168.0.215:8080/web/api/v1/user/login", {
-      userName: userName,
-      password: password,
+    .post("http://127.0.0.1:3000/auth/login", {
+      userName,
+      password,
     })
     .then((res) => {
-      console.log(res);
-      if (res.status === 200) {
+      if (res.data.code === 200) {
+        localStorage.setItem("token", res.data.data.access_token);
         router.push("/list");
+      } else {
+        ElMessage({
+          message: "登录失败",
+          type: "error",
+          duration: 2000
+        });
+        loginForm.password = "";
       }
     })
     .catch((error) => {
       console.log(error);
     });
 };
-
-// 取消按钮
-const onCancel = () => {
-  loginForm.userName = "";
-  loginForm.password = "";
-};
 </script>
 
 <style scoped>
-.login_ct{
+.login_ct {
   width: 100%;
   height: 100%;
-  background: url('../assets/bgImg.jpg') no-repeat center center fixed;
+  background: url("../assets/bgImg.jpg") no-repeat center center fixed;
   background-size: cover;
 }
 .login {

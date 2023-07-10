@@ -6,23 +6,49 @@
       <el-table-column prop="email" label="邮箱" width="180" />
       <el-table-column prop="phone" label="手机号" width="180" />
     </el-table>
-    <el-pagination layout="prev, pager, next" :total="1000" />
+    <el-pagination
+      layout="prev, pager, next"
+      :current-page="currentPage"
+      :page-size="pageSize"
+      :total="totalSize"
+      @current-change="handleCurrentChange"
+    />
   </div>
 </template>
 
 <script setup>
-import { reactive, onMounted } from "vue";
+import { reactive, onMounted, ref } from "vue";
 import axios from "axios";
 
-onMounted(() => {
-  axios.post("http://192.168.0.215:8080/web/api/v1/user/list", {}).then(res => {
-    console.log(res);
-    state.userInfoList = res.data.data
-  });
-});
+const currentPage = ref(1);
+const pageSize = ref(10);
+const totalSize = ref(1);
 
 const state = reactive({
-  userInfoList: [],
+  userInfoList: []
+});
+
+const handleCurrentChange = (val) => {
+  axios
+    .get(
+      `http://127.0.0.1:3000/user/list?page=${val}&pageSize=${pageSize.value}`
+    )
+    .then((res) => {
+      totalSize.value = res.data.data.total;
+      state.userInfoList = res.data.data.infos;
+      currentPage.value = val;
+    });
+};
+
+onMounted(() => {
+  axios
+    .get(
+      `http://127.0.0.1:3000/user/list?page=${currentPage.value}&pageSize=${pageSize.value}`
+    )
+    .then((res) => {
+      totalSize.value = res.data.data.total;
+      state.userInfoList = res.data.data.infos;
+    });
 });
 </script>
 
