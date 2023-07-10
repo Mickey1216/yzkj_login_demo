@@ -218,16 +218,15 @@ const onSubmit = () => {
   // router.push({
   //   path: "/login",
   // });
-  
+
   axios
     .post("http://127.0.0.1:3000/user/register", {
       userName: form.userName,
       password: form.password,
       email: form.email,
       phone: form.phone,
-      authCode: form.authCode,
     })
-    .then(res => {
+    .then((res) => {
       console.log(res);
       if (res.status === 200) {
         router.push({

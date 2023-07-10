@@ -80,12 +80,12 @@ const form = reactive({
 
 // 验证码的请求地址
 let authcodeUrl = computed(() => {
-  return `http://127.0.0.1:3000/user/authcode?${Math.random()}`;
+  return `http://localhost:3000/user/authcode?${Math.random()}`;
 });
 
 // 验证码刷新
 const refreshAuthCode = () => {
-  authcodeUrl = `http://127.0.0.1:3000/user/authcode?${Math.random()}`;
+  authcodeUrl = `http://localhost:3000/user/authcode?${Math.random()}`;
 };
 
 // 用户名的校验
@@ -220,7 +220,7 @@ const onSubmit = () => {
   // });
   
   axios
-    .post("http://127.0.0.1:3000/user/register", {
+    .post("http://localhost:3000/user/register", {
       userName: form.userName,
       password: form.password,
       email: form.email,

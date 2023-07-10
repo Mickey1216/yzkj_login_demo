@@ -220,7 +220,7 @@ const onSubmit = () => {
   // });
   
   axios
-    .post("http://127.0.0.1:3000/user/register", {
+    .post("http://localhost:3000/user/register", {
       userName: form.userName,
       password: form.password,
       email: form.email,

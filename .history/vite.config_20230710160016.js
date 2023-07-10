@@ -13,10 +13,8 @@ export default defineConfig({
       '@': fileURLToPath(new URL('./src', import.meta.url))
     }
   },
-  server: {
-    host: "127.0.0.1"
-  }
-
+  devServer: {
+    host
   // server: {
   //   port: '3000',
   //   proxy: {
