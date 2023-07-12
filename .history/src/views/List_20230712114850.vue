@@ -1,6 +1,6 @@
 <template>
   <div class="list">
-    <div class="logout" @click="handleLogout">登出</div>
+    <div class="logout" >登出</div>
     <div class="title">用户基本信息展示</div>
     <el-table :data="state.userInfoList" style="width: 540px" stripe border>
       <el-table-column prop="userName" label="用户名" width="180" />
@@ -20,9 +20,6 @@
 <script setup>
 import { reactive, onMounted, ref } from "vue";
 import axios from "axios";
-import { useRouter } from "vue-router";
-
-const router = useRouter();
 
 const currentPage = ref(1);
 const pageSize = ref(10);
@@ -54,12 +51,6 @@ onMounted(() => {
       state.userInfoList = res.data.data.infos;
     });
 });
-
-// 登出按钮
-const handleLogout = () => {
-  localStorage.removeItem("token");
-  router.push("/login");
-};
 </script>
 
 <style scoped>
@@ -76,18 +67,8 @@ const handleLogout = () => {
   top: 20px;
   right: 20px;
   cursor: pointer;
-  color: #fff;
+  color: #409eff;
   font-size: 16px;
-  width: 60px;
-  height: 30px;
-  line-height: 30px;
-  background-color: #409eff;
-  border-radius: 5px;
-  text-align: center;
-}
-.logout:hover{
-  color: #fff;
-  background-color: #66b1ff;
 }
 .title {
   margin: 20px 0;

@@ -22,8 +22,6 @@ import { reactive, onMounted, ref } from "vue";
 import axios from "axios";
 import { useRouter } from "vue-router";
 
-const router = useRouter();
-
 const currentPage = ref(1);
 const pageSize = ref(10);
 const totalSize = ref(1);

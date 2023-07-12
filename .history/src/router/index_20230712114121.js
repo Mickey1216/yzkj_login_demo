@@ -37,7 +37,6 @@ router.beforeEach((to, from, next) => {
   if(to.path === '/register')
     next()
     
-  // 如果没有token，就跳转到登录页面
   if(to.path !== '/login' && !localStorage.getItem('token'))
     next('/login')
   else

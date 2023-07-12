@@ -33,15 +33,7 @@ const router = createRouter({
 
 // 全局前置守卫
 router.beforeEach((to, from, next) => {
-  // 可以任意进入注册页面
-  if(to.path === '/register')
-    next()
-    
-  // 如果没有token，就跳转到登录页面
-  if(to.path !== '/login' && !localStorage.getItem('token'))
-    next('/login')
-  else
-    next()
-})
+  if(to.path !== '/login' && !localStorage.getItem('token')) 
+}
 
 export default router

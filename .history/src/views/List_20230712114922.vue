@@ -20,9 +20,6 @@
 <script setup>
 import { reactive, onMounted, ref } from "vue";
 import axios from "axios";
-import { useRouter } from "vue-router";
-
-const router = useRouter();
 
 const currentPage = ref(1);
 const pageSize = ref(10);
@@ -56,10 +53,7 @@ onMounted(() => {
 });
 
 // 登出按钮
-const handleLogout = () => {
-  localStorage.removeItem("token");
-  router.push("/login");
-};
+const
 </script>
 
 <style scoped>
@@ -76,18 +70,8 @@ const handleLogout = () => {
   top: 20px;
   right: 20px;
   cursor: pointer;
-  color: #fff;
+  color: #409eff;
   font-size: 16px;
-  width: 60px;
-  height: 30px;
-  line-height: 30px;
-  background-color: #409eff;
-  border-radius: 5px;
-  text-align: center;
-}
-.logout:hover{
-  color: #fff;
-  background-color: #66b1ff;
 }
 .title {
   margin: 20px 0;

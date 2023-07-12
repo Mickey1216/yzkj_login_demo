@@ -20,9 +20,6 @@
 <script setup>
 import { reactive, onMounted, ref } from "vue";
 import axios from "axios";
-import { useRouter } from "vue-router";
-
-const router = useRouter();
 
 const currentPage = ref(1);
 const pageSize = ref(10);
@@ -79,15 +76,10 @@ const handleLogout = () => {
   color: #fff;
   font-size: 16px;
   width: 60px;
-  height: 30px;
-  line-height: 30px;
-  background-color: #409eff;
+  height: 20px;
+  border: 1px solid #409eff;
   border-radius: 5px;
   text-align: center;
-}
-.logout:hover{
-  color: #fff;
-  background-color: #66b1ff;
 }
 .title {
   margin: 20px 0;
