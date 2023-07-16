@@ -1,5 +1,6 @@
 <template>
   <div class="register_Ct">
+    <button @click="fillInfo">fill</button>
     <div class="register">
     <div class="title">注册</div>
     <div class="form">
@@ -208,6 +209,14 @@ const rules = reactive({
   ],
 });
 
+const fillInfo = () => {
+  form.userName = "admin";
+  form.password = "123456";
+  form.email = "2448543261@qq.com"
+  form.phone = "18888888888"
+  form.authCode = "1234"
+}
+
 // 注册按钮
 const onSubmit = () => {
   // ElMessage({
@@ -229,11 +238,11 @@ const onSubmit = () => {
     })
     .then(res => {
       console.log(res);
-      if (res.status === 200) {
+      if (res.code === 200) {
         router.push({
           path: "/login",
         });
-      }
+      } else if (res.code === 10){}
     });
 };
 </script>
