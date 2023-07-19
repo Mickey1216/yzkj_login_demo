@@ -1,69 +1,88 @@
 <template>
   <div class="register_Ct">
-    <button @click="fillInfo">fill</button>
     <div class="register">
-    <div class="title">注册</div>
-    <div class="form">
-      <el-form
-        :model="form"
-        label-width="120px"
-        ref="ruleFormRef"
-        :rules="rules"
-      >
-        <div class="form_inputs">
-          <el-form-item label-width="0" prop="userName">
-            <el-input class="form_input" placeholder="请输入用户名" v-model="form.userName">
-              <template #prepend>
-                <el-button :icon="User" />
-              </template>
-            </el-input>
-          </el-form-item>
-          <el-form-item label-width="0" prop="password">
-            <el-input
-              class="form_input"
-              placeholder="请输入密码"
-              v-model="form.password"
-              type="password"
-            >
-              <template #prepend>
-                <el-button :icon="Lock" />
-              </template>
-            </el-input>
-          </el-form-item>
-          <el-form-item label-width="0" prop="email">
-            <el-input class="form_input" placeholder="请输入邮箱" v-model="form.email">
-              <template #prepend>
-                <el-button :icon="Message"></el-button>
-              </template>
-            </el-input>
-          </el-form-item>
-          <el-form-item label-width="0" prop="phone">
-            <el-input class="form_input" placeholder="请输入手机号" v-model="form.phone">
-              <template #prepend>
-                <el-button :icon="Iphone" />
-              </template>
-            </el-input>
-          </el-form-item>
-          <el-form-item label-width="0" prop="authCode">
-            <div class="auth_area">
-              <el-input class="form_input auth_input" placeholder="请输入验证码" v-model="form.authCode" />
-              <img class="auth_code_img" :src="authcodeUrl" @click="refreshAuthCode"/>
-            </div>
-          </el-form-item>
-        </div>
-        <div class="btn">
-          <el-form-item label-width="0">
-            <el-button type="primary" @click="onSubmit">注册</el-button>
-          </el-form-item>
-        </div>
-      </el-form>
+      <div class="title">注册</div>
+      <div class="form">
+        <el-form
+          :model="form"
+          label-width="120px"
+          ref="ruleFormRef"
+          :rules="rules"
+        >
+          <div class="form_inputs">
+            <el-form-item label-width="0" prop="userName">
+              <el-input
+                class="form_input"
+                placeholder="请输入用户名"
+                v-model="form.userName"
+              >
+                <template #prepend>
+                  <el-button :icon="User" />
+                </template>
+              </el-input>
+            </el-form-item>
+            <el-form-item label-width="0" prop="password">
+              <el-input
+                class="form_input"
+                placeholder="请输入密码"
+                v-model="form.password"
+                type="password"
+              >
+                <template #prepend>
+                  <el-button :icon="Lock" />
+                </template>
+              </el-input>
+            </el-form-item>
+            <el-form-item label-width="0" prop="email">
+              <el-input
+                class="form_input"
+                placeholder="请输入邮箱"
+                v-model="form.email"
+              >
+                <template #prepend>
+                  <el-button :icon="Message"></el-button>
+                </template>
+              </el-input>
+            </el-form-item>
+            <el-form-item label-width="0" prop="phone">
+              <el-input
+                class="form_input"
+                placeholder="请输入手机号"
+                v-model="form.phone"
+              >
+                <template #prepend>
+                  <el-button :icon="Iphone" />
+                </template>
+              </el-input>
+            </el-form-item>
+            <el-form-item label-width="0" prop="authCode">
+              <div class="auth_area">
+                <el-input
+                  class="form_input auth_input"
+                  placeholder="请输入验证码"
+                  v-model="form.authCode"
+                />
+                <img
+                  class="auth_code_img"
+                  :src="authcodeUrl"
+                  @click="refreshAuthCode"
+                />
+              </div>
+            </el-form-item>
+          </div>
+          <div class="btn">
+            <el-form-item label-width="0">
+              <el-button type="primary" @click="onSubmit">注册</el-button>
+            </el-form-item>
+          </div>
+        </el-form>
+      </div>
     </div>
-  </div>
   </div>
 </template>
 
 <script setup>
-import { reactive, computed  } from "vue";
+import { reactive, computed } from "vue";
 import axios from "axios";
 import { useRouter } from "vue-router";
 import { User, Lock, Avatar, Message, Iphone } from "@element-plus/icons-vue";
@@ -132,8 +151,7 @@ const checkPhone = (rule, value, callback) => {
 
 // 验证码的校验
 const checkAuthCode = (rule, value, callback) => {
-  let reg =
-    /^[0-9a-zA-Z]{4}$/;
+  let reg = /^[0-9a-zA-Z]{4}$/;
   if (!reg.test(value)) {
     callback(new Error("请输入正确的验证码"));
   } else {
@@ -141,6 +159,7 @@ const checkAuthCode = (rule, value, callback) => {
   }
 };
 
+// 自定义验证规则
 const rules = reactive({
   userName: [
     {
@@ -209,25 +228,8 @@ const rules = reactive({
   ],
 });
 
-const fillInfo = () => {
-  form.userName = "admin";
-  form.password = "123456";
-  form.email = "2448543261@qq.com"
-  form.phone = "18888888888"
-  form.authCode = "1234"
-}
-
 // 注册按钮
 const onSubmit = () => {
-  // ElMessage({
-  //   message: '注册成功！',
-  //   grouping: true,
-  //   type: 'success',
-  // })
-  // router.push({
-  //   path: "/login",
-  // });
-  
   axios
     .post("http://127.0.0.1:3000/user/register", {
       userName: form.userName,
@@ -236,22 +238,41 @@ const onSubmit = () => {
       phone: form.phone,
       authCode: form.authCode,
     })
-    .then(res => {
-      console.log(res);
-      if (res.code === 200) {
+    .then((res) => {
+      console.log("register", res);
+      if (res.data.data.code === 200) {
+        ElMessage({
+          message: "注册成功，可以去登录啦！",
+          type: "success",
+          duration: 2000,
+        });
+
+        // 跳转到登录页面
         router.push({
           path: "/login",
         });
-      } else if (res.code === 10){}
+      } else if (res.data.data.code === 401) {
+        ElMessage({
+          message: "验证码错误",
+          type: "error",
+          duration: 2000,
+        });
+      }else if(res.data.code === 1003){
+        ElMessage({
+          message: "用户已存在（用户名、邮箱、手机号唯一）",
+          type: "error",
+          duration: 2000, 
+        });
+      }
     });
 };
 </script>
 
 <style scoped>
-.register_Ct{
+.register_Ct {
   width: 100%;
   height: 100%;
-  background: url('../assets/bgImg.jpg') no-repeat center center fixed;
+  background: url("../assets/bgImg.jpg") no-repeat center center fixed;
   background-size: cover;
 }
 .register {
@@ -279,16 +300,16 @@ const onSubmit = () => {
   letter-spacing: 30px;
   font-weight: bolder;
 }
-.form_inputs{
+.form_inputs {
   text-align: center;
 }
-.form_input{
+.form_input {
   width: 220px;
   height: 34px;
   margin: 5px 0px;
 }
-:deep().el-input__inner::placeholder{
-  color: #3399FF;
+:deep().el-input__inner::placeholder {
+  color: #3399ff;
 }
 :deep().el-input-group__prepend {
   width: 30px;
@@ -297,37 +318,37 @@ const onSubmit = () => {
 :deep().el-input-group__prepend > button {
   display: flex;
 }
-:deep().el-form-item__content{
+:deep().el-form-item__content {
   width: 220px;
   display: flex;
   align-items: center;
   justify-content: center;
 }
-.el-button{
+.el-button {
   width: 220px;
   height: 40px;
   border-radius: 20px;
-  background-color:rgb(255, 255, 255, 0)
+  background-color: rgb(255, 255, 255, 0);
 }
-.auth_area{
+.auth_area {
   display: flex;
   align-items: center;
   justify-content: center;
 }
-.auth_code_img{
+.auth_code_img {
   width: 100px;
   height: 34px;
 }
-.auth_code_img:hover{
+.auth_code_img:hover {
   cursor: pointer;
 }
-.auth_input{
+.auth_input {
   width: 100%;
 }
-:deep().el-form-item__error{
-  color:#FFCC99;
+:deep().el-form-item__error {
+  color: #ffcc99;
 }
-:deep().el-form-item.is-error .el-input__wrapper{
-  box-shadow: 0 0 0 1px #FFCC99 inset;
+:deep().el-form-item.is-error .el-input__wrapper {
+  box-shadow: 0 0 0 1px #ffcc99 inset;
 }
 </style>

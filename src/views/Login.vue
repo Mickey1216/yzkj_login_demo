@@ -108,12 +108,18 @@ const onLogin = () => {
       password,
     })
     .then((res) => {
+      console.log("login", res);
       if (res.data.code === 200) {
+        ElMessage({
+          message: `欢迎您，尊敬的${userName}`,
+          type: "success",
+          duration: 2000
+        });
         localStorage.setItem("token", res.data.data.access_token);
         router.push("/list");
       } else {
         ElMessage({
-          message: "登录失败",
+          message: "登录失败，请检查用户名和密码",
           type: "error",
           duration: 2000
         });

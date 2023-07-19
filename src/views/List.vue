@@ -21,6 +21,7 @@
 import { reactive, onMounted, ref } from "vue";
 import axios from "axios";
 import { useRouter } from "vue-router";
+import { ElMessage } from "element-plus";
 
 const router = useRouter();
 
@@ -58,6 +59,11 @@ onMounted(() => {
 // 登出按钮
 const handleLogout = () => {
   localStorage.removeItem("token");
+  ElMessage({
+    type: "success",
+    message: "登出成功",
+    duration: 2000,
+  })
   router.push("/login");
 };
 </script>

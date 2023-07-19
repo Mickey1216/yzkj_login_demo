@@ -2,11 +2,11 @@ import { createApp } from 'vue'
 import App from './App.vue'
 import router from './router'
 import ElementPlus from 'element-plus'
+import axios from 'axios'
 import 'element-plus/dist/index.css'
 import './assets/main.css'
 
-import axios from 'axios'
-
+// 配置，允许跨域携带cookie
 axios.defaults.withCredentials = true
 
 const app = createApp(App)
